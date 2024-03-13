@@ -1,5 +1,4 @@
 import streamlit as st
-from rembg import remove
 from PIL import Image
 from io import BytesIO
 import base64
@@ -27,7 +26,7 @@ def fix_image(upload):
     col1.write("Original Image :camera:")
     col1.image(image)
 
-    fixed = remove(image)
+    fixed = image
     col2.write("Fixed Image :wrench:")
     col2.image(fixed)
     st.sidebar.markdown("\n")
