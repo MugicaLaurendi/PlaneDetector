@@ -4,7 +4,3 @@ streamlit==1.21.0
 numba==0.57
 numpy==1.23.0
 requests
-numpy
-pandas
-opencv-python-headless
-matplotlib

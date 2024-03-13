@@ -4,13 +4,6 @@ from io import BytesIO
 import base64
 import requests
 
-import numpy as np
-import pandas as pd
-import cv2, os, re
-import matplotlib.image
-import matplotlib.pyplot as plt
-
-from Detector import *
 
 st.set_page_config(layout="wide", page_title="Image Background Remover")
 
@@ -37,21 +30,12 @@ def fix_image(upload):
 
     # image transformation
 
-    model =  load_model('plane-model.h5')
 
-    detector = Detector(image, model)
-
-    image = detector.to_input(image)
-    roi = detector.find_roi(image)
-    rois, rois_locations = detector.normalise_roi(image, roi)
-    predictions = detector.classification_on_roi(rois, model)
-    image_predicted = detector.insert_roi_classed_on_image(image, predictions, rois_locations)
-    detector.to_output(image_predicted)
 
 
     # end image transformation
 
-    image_predicted = Image.open('detector.png')
+    #image_predicted = Image.open('detector.png')
 
     col2.write("Fixed Image :wrench:")
     col2.image(image_predicted)
