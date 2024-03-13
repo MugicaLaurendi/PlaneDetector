@@ -14,7 +14,7 @@ st.set_page_config(layout="wide", page_title="Plane Detector")
 
 st.write("## Plane Detector")
 st.write(
-    ":plane: Try uploading a satellite image to detect planes. Full quality images can be downloaded from the sidebar."
+    ":airplane: Try uploading a satellite image to detect planes. Full quality images can be downloaded from the sidebar."
 )
 st.sidebar.write("## Upload and download :gear:")
 
