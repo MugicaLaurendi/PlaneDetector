@@ -2,6 +2,15 @@ import streamlit as st
 from PIL import Image
 from io import BytesIO
 import base64
+import requests
+
+import numpy as np
+import pandas as pd
+import cv2, os, re
+import matplotlib.image
+import matplotlib.pyplot as plt
+
+from Detector import *
 
 st.set_page_config(layout="wide", page_title="Image Background Remover")
 
@@ -13,7 +22,7 @@ st.sidebar.write("## Upload and download :gear:")
 
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
-# Download the fixed image
+# Download the image
 def convert_image(img):
     buf = BytesIO()
     img.save(buf, format="PNG")
@@ -26,11 +35,29 @@ def fix_image(upload):
     col1.write("Original Image :camera:")
     col1.image(image)
 
-    fixed = image
+    # image transformation
+
+    model =  load_model('plane-model.h5')
+
+    detector = Detector(image, model)
+
+    image = detector.to_input(image)
+    roi = detector.find_roi(image)
+    rois, rois_locations = detector.normalise_roi(image, roi)
+    predictions = detector.classification_on_roi(rois, model)
+    image_predicted = detector.insert_roi_classed_on_image(image, predictions, rois_locations)
+    detector.to_output(image_predicted)
+
+
+    # end image transformation
+
+    image_predicted = Image.open('detector.png')
+
     col2.write("Fixed Image :wrench:")
-    col2.image(fixed)
+    col2.image(image_predicted)
+
     st.sidebar.markdown("\n")
-    st.sidebar.download_button("Download fixed image", convert_image(fixed), "fixed.png", "image/png")
+    st.sidebar.download_button("Download image_predicted", convert_image(image_predicted), "image_predicted.png", "image/png")
 
 
 col1, col2 = st.columns(2)
