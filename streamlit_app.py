@@ -68,5 +68,5 @@ if my_upload is not None:
         st.error("The uploaded file is too large. Please upload an image smaller than 5MB.")
     else:
         fix_image(upload=my_upload)
-else:
-    fix_image("./zebra.jpg")
+#else:
+#    fix_image("./zebra.jpg")
