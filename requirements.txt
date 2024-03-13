@@ -6,7 +6,7 @@ numpy==1.23.0
 requests
 numpy
 pandas
-cv2
+opencv-python-headless
 os
 re
 matplotlib
