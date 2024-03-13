@@ -7,6 +7,4 @@ requests
 numpy
 pandas
 opencv-python-headless
-os
-re
 matplotlib
