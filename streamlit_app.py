@@ -5,6 +5,11 @@ import base64
 import requests
 
 
+from requests_toolbelt.multipart.encoder import MultipartEncoder
+
+backend = "http://127.0.0.1:8000/planedetector"
+
+
 st.set_page_config(layout="wide", page_title="Image Background Remover")
 
 st.write("## Remove background from your image")
@@ -31,7 +36,19 @@ def fix_image(upload):
     # image transformation
 
 
+    def process(image, server_url: str):
 
+        m = MultipartEncoder(fields={"file": ("filename", image, "image/jpeg")})
+
+        r = requests.post(
+            server_url, data=m, headers={"Content-Type": m.content_type}, timeout=8000
+        )
+
+        return r
+
+
+    segments = process(image, backend)
+    image_predicted = Image.open(BytesIO(segments.content)).convert("RGB")
 
     # end image transformation
 
