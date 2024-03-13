@@ -10,11 +10,11 @@ from requests_toolbelt.multipart.encoder import MultipartEncoder
 backend = "http://127.0.0.1:8000/planedetector"
 
 
-st.set_page_config(layout="wide", page_title="Image Background Remover")
+st.set_page_config(layout="wide", page_title="Plane Detector")
 
-st.write("## Remove background from your image")
+st.write("## Plane Detector")
 st.write(
-    ":dog: Try uploading an image to watch the background magically removed. Full quality images can be downloaded from the sidebar. This code is open source and available [here](https://github.com/tyler-simons/BackgroundRemoval) on GitHub. Special thanks to the [rembg library](https://github.com/danielgatis/rembg) :grin:"
+    ":plane: Try uploading a satellite image to detect planes. Full quality images can be downloaded from the sidebar."
 )
 st.sidebar.write("## Upload and download :gear:")
 
@@ -42,7 +42,7 @@ def fix_image(upload):
         m = MultipartEncoder(fields={"file": ("filename", image, "image/png")})
 
         r = requests.post(
-            server_url, data=m, headers={"Content-Type": m.content_type}, timeout=8000
+            server_url, data=m, headers={"Content-Type": m.content_type}
         )
 
         return r
@@ -71,4 +71,4 @@ if my_upload is not None:
     else:
         fix_image(upload=my_upload)
 #else:
-#    fix_image("./zebra.jpg")
+#    fix_image("./not_plane.jpg")
