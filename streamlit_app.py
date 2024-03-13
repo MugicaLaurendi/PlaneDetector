@@ -38,7 +38,7 @@ def fix_image(upload):
 
     def process(image, server_url: str):
 
-        m = MultipartEncoder(fields={"file": ("filename", image, "image/jpeg")})
+        m = MultipartEncoder(fields={"file": ("filename", image, "image/png")})
 
         r = requests.post(
             server_url, data=m, headers={"Content-Type": m.content_type}, timeout=8000
